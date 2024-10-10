@@ -1,33 +1,29 @@
-import { useEffect, useState } from "react"
-import searchFilm from '../services/searchMovieAPI'
+import { useEffect, useState } from "react";
+import { searchFilm } from '../services/searchMovieAPI';
+import { nanoid } from 'nanoid';
 
-const MovieSearch = () => {
+const MovieSearch = ({ query }) => {
+    const [movies, setMovies] = useState([]);
 
-    const [query, setQuery] = useState()
+    useEffect(() => {
+        if (query.trim() === '') return;
 
-    const handleChange = (e) => {
-        setQuery(e.target.value)
-    }
-
-    useEffect(()=> {
         searchFilm(query)
-        .then(console.log)
-    }, [query])
+            .then(data => setMovies(data.results))
+            .catch(error => console.error('Error fetching movies:', error));
+    }, [query]);
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-
-        
-    }
-
-    return(
+    return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <input onChange={handleChange} type="text"  placeholder="Search movie" name='searchQuery' value={query}/>
-                <button type="submit">Search</button>
-            </form>
+            <ul>
+                {movies.map((movie) => (
+                    <li key={nanoid()}>
+                        {movie.title}
+                    </li>
+                ))}
+            </ul>
         </div>
-    )
-}
+    );
+};
 
-export default MovieSearch
+export default MovieSearch;
