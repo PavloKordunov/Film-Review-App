@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { searchFilm } from '../services/searchMovieAPI';
-import { nanoid } from 'nanoid';
+import { NavLink } from "react-router-dom"
 
 const MovieSearch = ({ query }) => {
     const [movies, setMovies] = useState([]);
@@ -17,8 +17,8 @@ const MovieSearch = ({ query }) => {
         <div>
             <ul>
                 {movies.map((movie) => (
-                    <li key={nanoid()}>
-                        {movie.title}
+                    <li key={movie.id}>
+                         <NavLink to={`${movie.id}`}>{movie.title}</NavLink>
                     </li>
                 ))}
             </ul>
