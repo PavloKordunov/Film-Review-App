@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import {trendMovieApi} from '../services/searchMovieAPI'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const HomePage = () => {
     const [trendMovie, setTrendMovie] = useState([])
+
+    const location = useLocation()
 
     useEffect(() => {
         trendMovieApi()
@@ -17,7 +19,7 @@ const HomePage = () => {
             <ul>
                 {trendMovie?.map(movie => (
                     <li key={movie.id}>
-                    <Link to={`movies/${movie.id}`}>{movie.title}</Link>
+                    <Link to={`movies/${movie.id}`} state={location}>{movie.title}</Link>
                </li>
                 ))}
             </ul>

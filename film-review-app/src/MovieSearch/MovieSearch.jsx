@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { searchFilm } from '../services/searchMovieAPI';
-import { NavLink } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 
 const MovieSearch = ({ query }) => {
     const [movies, setMovies] = useState([]);
+
+    const location = useLocation()
 
     useEffect(() => {
         if (query.trim() === '') return;
@@ -18,7 +20,7 @@ const MovieSearch = ({ query }) => {
             <ul>
                 {movies.map((movie) => (
                     <li key={movie.id}>
-                         <NavLink to={`${movie.id}`}>{movie.title}</NavLink>
+                         <NavLink to={`${movie.id}`} state={location}>{movie.title}</NavLink>
                     </li>
                 ))}
             </ul>

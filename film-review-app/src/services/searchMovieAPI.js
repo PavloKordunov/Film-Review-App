@@ -46,3 +46,29 @@ export function movieIdApi(movieId) {
             console.error('Error fetching data:', error);
         });
 }
+
+export function movieCastApi(movieId) {
+    return fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`, options)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.json();
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}
+
+export function movieReviewsApi(movieId) {
+    return fetch(`https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`, options)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.json();
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}
