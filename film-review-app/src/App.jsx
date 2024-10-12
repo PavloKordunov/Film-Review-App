@@ -1,14 +1,17 @@
-import Louout from "./Loyout/Loyout";
-import MoviesPage from "./pages/MoviesPage";
-import HomePage from "./pages/HomePage";
-import MovieDetails from "./MovieSearch/MovieDetails";
-import Reviews from "./Reviews/Reviews";
-import Cast from "./Cast/Cast";
-
 import {Routes, Route} from 'react-router-dom'
+import { lazy, Suspense } from "react";
+
+import Louout from "./Loyout/Loyout";
+import HomePage from "./pages/HomePage";
+
+const MovieDetails = lazy(() => import("./MovieSearch/MovieDetails"))
+const MoviesPage = lazy(() => import("./pages/MoviesPage"))
+const Reviews = lazy(() => import("./Reviews/Reviews"))
+const Cast = lazy(() => import("./Cast/Cast"))
 
 function App() {
   return (
+    <Suspense>
     <Routes>
       <Route path="/" element={<Louout/>}>
         <Route index element={<HomePage/>}/>
@@ -19,6 +22,7 @@ function App() {
         </Route>
       </Route>
     </Routes>
+    </Suspense>
   )
 }
 
